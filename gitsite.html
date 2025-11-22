@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>gitdevOps — by Jamish</title>
+  <meta name="description" content="A clean, responsive landing page for Jamish's gitdevOps project." />
+  <style>
+    :root{
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #0f1724;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --radius: 12px;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui;line-height:1.5;background:var(--bg);color:var(--text)}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px,94%);margin:0 auto}
+    header{position:sticky;top:12px;z-index:50;backdrop-filter:blur(6px)}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:14px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.3));box-shadow:0 6px 20px rgba(20,20,60,0.06)}
+    .brand{display:flex;gap:.6rem;align-items:center}
+    .logo{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#7c3aed);color:white;font-weight:700}
+    nav ul{list-style:none;display:flex;gap:14px;margin:0;padding:0;align-items:center}
+    nav a{padding:8px 10px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a:hover{background:rgba(0,0,0,0.03);color:var(--text)}
+    .cta{background:var(--accent);color:white;padding:8px 12px;border-radius:10px}
+    .hero{padding:48px 0 28px}
+    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center}
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(37,99,235,0.12);color:var(--accent);font-weight:700;margin-bottom:12px}
+    h1{font-size:34px;margin:0 0 12px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 8px 30px rgba(15,23,36,0.06)}
+    footer{padding:28px 0;color:var(--muted);font-size:.95rem;text-align:center}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">GD</div>
+        <div>
+          <div style="font-weight:800">gitdevOps</div>
+          <div style="font-size:12px;color:var(--muted)">by Jamish</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="cta" href="#">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker">Jamish Presents</span>
+          <h1>Welcome to gitdevOps</h1>
+          <p class="lead">A modern DevOps-focused project by Jamish — crafted for speed, collaboration, and innovation.</p>
+          <a class="cta" href="#contact">Contact Me</a>
+        </div>
+        <aside class="card">
+          <h3>About gitdevOps</h3>
+          <p>This is a showcase of Jamish’s DevOps and Git automation journey. Fast, efficient, and reliable.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact" class="card" style="margin-top:30px;padding:20px;">
+      <h3>Contact Jamish</h3>
+      <p>If you’d like to collaborate or learn more about gitdevOps, send a message below:</p>
+      <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <label>Name</label>
+        <input name="name" required placeholder="Your name" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:1px solid #ccc">
+        <label>Email</label>
+        <input name="email" type="email" required placeholder="name@example.com" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:1px solid #ccc">
+        <label>Message</label>
+        <textarea name="message" required placeholder="Your message" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:1px solid #ccc"></textarea>
+        <button type="submit" class="cta">Send</button>
+      <div id="formStatus" style="color:gray;margin-top:10px;font-weight:600"></div>
+      </form>
+      <script>
+        const contactForm = document.querySelector('form[action^="https://formspree.io"]');
+        const formStatus = document.getElementById('formStatus');
+
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          formStatus.style.color = 'gray';
+          formStatus.textContent = 'Sending...';
+
+          const formData = new FormData(contactForm);
+
+          try {
+            const response = await fetch(contactForm.action, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+              formStatus.style.color = 'green';
+              formStatus.textContent = '✔ Success! Your message has been sent.';
+              contactForm.reset();
+            } else {
+              formStatus.style.color = 'red';
+              formStatus.textContent = '✖ Something went wrong. Please try again.';
+            }
+
+          } catch (error) {
+            formStatus.style.color = 'red';
+            formStatus.textContent = '✖ Network error. Check your internet and try again.';
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <footer class="container">© <span id="year"></span> Jamish — gitdevOps Project</footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function handleSubmit(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const status = document.getElementById('formStatus');
+      status.textContent = 'Thanks — I will reply to ' + email + ' soon!';
+      e.target.reset();
+      const scriptURL = "https://script.google.com/macros/s/AKfycbw2hA6tHShVZKMZ50GtDFbcTxsSmJh_WxkDziJiFZDFi9m0Hjl9PicNSAuVG8DIsohVgA/exec";
+    }
+    
+  </script>
+</body>
+</html>
